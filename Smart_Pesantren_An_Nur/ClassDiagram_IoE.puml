@@ -1,0 +1,117 @@
+@startuml
+
+class Santri {
+    +idSantri : int
+    +nama : string
+    +uidRFID : string
+    +kelas : string
+
+    +scanRFID()
+}
+
+class Absensi {
+    +idAbsensi : int
+    +waktuScan : datetime
+    +status : string
+
+    +simpanAbsensi()
+}
+
+class Jadwal {
+    +idJadwal : int
+    +kegiatan : string
+    +waktu : time
+    +lokasi : string
+
+    +tambahJadwal()
+    +ubahJadwal()
+    +hapusJadwal()
+}
+
+class MonitoringLingkungan {
+    +idSensor : int
+    +suhu : float
+    +kelembapan : float
+
+    +kirimData()
+}
+
+class MonitoringListrik {
+    +idPower : int
+    +lokasi : string
+    +voltage : float
+    +current : float
+    +power : float
+    +energy : float
+
+    +kirimData()
+    +cekOverload()
+}
+
+class Notifikasi {
+    +idNotifikasi : int
+    +jenis : string
+    +pesan : string
+    +waktu : datetime
+
+    +kirim()
+}
+
+class Operator {
+    +idOperator : int
+    +username : string
+    +password : string
+
+    +login()
+    +kelolaJadwal()
+    +lihatMonitoring()
+}
+
+class Pengurus {
+    +idPengurus : int
+    +nama : string
+
+    +lihatLaporan()
+}
+
+class NodeKelas {
+    +idNode : int
+    +lokasi : string
+    +status : string
+
+    +bacaRFID()
+    +bacaSensor()
+    +kirimData()
+}
+
+class Server {
+    +prosesAbsensi()
+    +simpanData()
+    +kirimNotifikasi()
+}
+
+Santri "1" -- "0..*" Absensi
+
+Operator "1" -- "0..*" Jadwal
+
+Pengurus "1" -- "0..*" Absensi
+
+NodeKelas "1" -- "1" MonitoringLingkungan
+
+NodeKelas "1" -- "1" MonitoringListrik
+
+NodeKelas --> Server
+
+Server --> Absensi
+
+Server --> Jadwal
+
+Server --> MonitoringLingkungan
+
+Server --> MonitoringListrik
+
+Server --> Notifikasi
+
+Operator --> Notifikasi
+
+@enduml
