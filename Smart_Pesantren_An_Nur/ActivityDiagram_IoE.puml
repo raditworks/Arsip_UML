@@ -1,0 +1,33 @@
+@startuml
+
+start
+
+:Santri menempelkan kartu RFID;
+
+:RFID Reader membaca UID;
+
+:ESP32 mengirim UID ke Server;
+
+:Server mencari UID pada Database;
+
+if (UID ditemukan?) then (Ya)
+
+    :Membuat record absensi;
+
+    :Simpan ke Database;
+
+    :Kirim status berhasil;
+
+    :Tampilkan pesan absensi berhasil;
+
+else (Tidak)
+
+    :Kirim status gagal;
+
+    :Tampilkan RFID tidak terdaftar;
+
+endif
+
+stop
+
+@enduml
