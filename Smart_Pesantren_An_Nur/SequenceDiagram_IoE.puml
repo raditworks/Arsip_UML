@@ -1,0 +1,39 @@
+@startuml
+
+actor Santri
+
+participant "RFID Reader" as RFID
+participant ESP32
+participant Server
+
+database Database
+
+Santri -> RFID : Tap kartu RFID
+
+RFID -> ESP32 : UID RFID
+
+ESP32 -> Server : POST UID
+
+Server -> Database : Cari UID RFID
+
+Database --> Server : Data Santri
+
+alt UID Valid
+
+    Server -> Database : Simpan Absensi
+
+    Database --> Server : OK
+
+    Server --> ESP32 : Absensi Berhasil
+
+    ESP32 --> Santri : Tampilkan Berhasil
+
+else UID Tidak Valid
+
+    Server --> ESP32 : RFID Tidak Terdaftar
+
+    ESP32 --> Santri : Tampilkan Error
+
+end
+
+@enduml
