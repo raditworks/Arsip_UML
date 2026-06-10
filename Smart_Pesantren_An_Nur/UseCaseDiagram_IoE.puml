@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+
+actor Santri
+actor "Node Kelas" as Node
+
+actor Operator
+actor Pengurus
+
+rectangle "Smart Pesantren IoE System" {
+
+    usecase "Login" as UC1
+
+    usecase "Registrasi RFID" as UC2
+
+    usecase "Scan RFID" as UC3
+
+    usecase "Catat Absensi" as UC4
+
+    usecase "Monitoring Lingkungan" as UC5
+
+    usecase "Monitoring Listrik" as UC6
+
+    usecase "Kelola Jadwal" as UC7
+
+    usecase "Lihat Jadwal Digital" as UC8
+
+    usecase "Lihat Data Absensi" as UC9
+
+    usecase "Lihat Laporan Absensi" as UC10
+
+    usecase "Monitoring Data Kelas" as UC11
+
+    usecase "Kirim Notifikasi" as UC12
+
+}
+
+Santri --> UC3
+Santri --> UC8
+
+Node --> UC4
+Node --> UC5
+Node --> UC6
+
+Operator --> UC1
+Operator --> UC2
+Operator --> UC5
+Operator --> UC6
+Operator --> UC7
+Operator --> UC9
+Operator --> UC12
+
+Pengurus --> UC10
+Pengurus --> UC11
+
+UC3 .> UC4 : <<include>>
+
+UC5 .> UC12 : <<extend>>
+UC6 .> UC12 : <<extend>>
+
+@enduml
